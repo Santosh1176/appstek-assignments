@@ -1,0 +1,12 @@
+name: varify Gitsign commits
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  gitsign:
+    permissions:
+      id-token: write # Enable OIDC
+    steps:
+      - uses: chainguard-dev/actions/setup-gitsign@main
