@@ -42,7 +42,7 @@ jobs:
 
       - name: Verify commit
         env:
-          COSIGN_PASSWORD: ${{COSIGN_PASSWORD}}
+          COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
         shell: bash
 # The below script uses rekor-cli to fetch gitsign signed commit and verifies it has an entry in Rekor logs.
 # Then uses cosign to varify the certificates used in signing the commit.       
