@@ -64,6 +64,6 @@ jobs:
 
       - name: Verify container digest with cosign
         run: |
-          cosign verify ${{env.IMAGE}}:latest
-        env:
-          COSIGN_EXPERIMENTAL: 1
+          cosign verify ${{env.IMAGE}}:latest --certificate-oidc-issuer-regexp='^https:\/\/(github\.com\/login\/oauth|accounts\.google\.com|login\.microsoftonline\.com)' \
+          --certificate-identity-regexp='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        
