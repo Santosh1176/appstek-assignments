@@ -64,4 +64,4 @@ jobs:
 
       - name: Verify container digest with cosign
         run: |
-          cosign verify --key cosign.pub santosh1176/appstek-assignments:sha256:c6cea37e6b6b12940669bf6bd8fb1f88fae86e3724ece838b6fc8433b2b2f01c --yes
+          cosign verify --key cosign.pub santosh1176/appstek-assignments:sha256:c6cea37e6b6b12940669bf6bd8fb1f88fae86e3724ece838b6fc8433b2b2f01c
