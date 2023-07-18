@@ -26,7 +26,6 @@ jobs:
         uses: sigstore/cosign-installer@v3.1.1
         with:
           cosign-release: 'v1.6.0'
-      - run: cosign version
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
