@@ -1,0 +1,1 @@
+# Use cosign to sign container image in keyless mode and push to GitHub container registry using GitHub action.
