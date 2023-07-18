@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: buildah-library
-      REGISTRY: ghcr.io/santosh1176/appstek-assignments
+      REGISTRY: santosh1176/appstek-assignments
     steps:
       - name: Clone the repository
         uses: actions/checkout@v2
