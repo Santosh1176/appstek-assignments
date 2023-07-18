@@ -28,10 +28,10 @@ jobs:
         shell: bash
         run: go install -v github.com/sigstore/rekor/cmd/rekor-cli@v1.2.2
 
-      - name: Get Commit SHA  
-        run: |
-         commit=$GITHUB_SHA
-         echo ${GITHUB_SHA}
+      # - name: Get Commit SHA  
+      #   run: |
+      #    commit=$GITHUB_SHA
+      #    echo ${GITHUB_SHA}
   
 
       - name: Verify commit
@@ -39,11 +39,11 @@ jobs:
 # The below script uses rekor-cli to fetch gitsign signed commit and verifies it has an entry in Rekor logs.
 # Then uses cosign to varify the certificates used in signing the commit.       
         run: |
-          uuid=$(rekor-cli search --artifact <(echo $GITHUB_SHA) | tail -n 1)
+          uuid=$(rekor-cli search --artifact <(git rev-parse HEAD | tr -d '\n') | tail -n 1)
           rekor-cli get --uuid=$uuid --format=json | jq .
           sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.content)
           cert=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.publicKey.content)
-          cosign verify-blob --cert <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(echo $GITHUB_SHA | tr -d '\n')
+          cosign verify-blob --cert <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(git rev-parse HEAD | tr -d '\n')
 
 # This method uses Git to varify the commit
       # - name: Verify commit using gitsign
