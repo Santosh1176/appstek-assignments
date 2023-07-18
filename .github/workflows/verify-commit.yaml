@@ -9,6 +9,14 @@ jobs:
   Rekor:
     runs-on: ubuntu-latest
     steps:
+# Rekor-cli is installed using Go binaries below, hence this action needs Go to be installed
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.20' 
+      - run: go version
+
+
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
 
