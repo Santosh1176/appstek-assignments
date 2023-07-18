@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ env.IMAGE }}:${{steps.prep.RIVISION}}
+          tags: ghcr.io/${{ env.IMAGE }}:${{steps.prep.outputs.RIVISION}}
 
       - name: Sign the container image
         run: cosign sign ghcr.io/${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }}
