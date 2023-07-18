@@ -55,13 +55,15 @@ jobs:
       - name: Sign the container image
         run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} 
 
-      - name: Write signing key to disk
-        run: 'echo "$KEY" > cosign.pub'
-        shell: bash
-        env:
-          KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-          COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
+      # - name: Write signing key to disk
+      #   run: 'echo "$KEY" > cosign.pub'
+      #   shell: bash
+      #   env:
+      #     KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
+      #     COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
 
       - name: Verify container digest with cosign
         run: |
-          cosign verify --key cosign.pub santosh1176/appstek-assignments@sha256:c6cea37e6b6b12940669bf6bd8fb1f88fae86e3724ece838b6fc8433b2b2f01c
+          cosign verify cosign.pub ${{env.IMAGE}}:latest
+        env:
+          COSIGN_EXPERIMENTAL: 1
