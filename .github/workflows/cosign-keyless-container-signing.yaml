@@ -3,10 +3,8 @@ name: Push to GHCR and Sign Container Image
 
 on:
   push:
-    branches: [ main ]
-
-  pull_request:
-    branches: [ main ]
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -21,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Prepare
         id: prep
         run: |
@@ -50,7 +48,7 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.IMAGE }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.IMAGE }}:latest
 
       - name: Sign the container image
         run: cosign sign ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }}
