@@ -53,7 +53,7 @@ jobs:
         #   COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
         shell: bash
 # The below script uses rekor-cli to fetch gitsign signed commit and verifies it has an entry in Rekor logs.
-# Then uses cosign to varify the certificates used in signing the commit.       
+# Then uses cosign to varify the certificates used in signing the commit. It uses Regex to provide OIDC issuer and certifcate identity     
         run: |
           uuid=$(rekor-cli search --artifact <(git rev-parse HEAD | tr -d '\n') | tail -n 1)
           sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.content)
@@ -62,12 +62,3 @@ jobs:
           --certificate-oidc-issuer-regexp='^https:\/\/(github\.com\/login\/oauth|accounts\.google\.com|login\.microsoftonline\.com)' \
           --certificate-identity-regexp='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
-# This method uses Git to varify the commit
-      # - name: Verify commit using gitsign
-      #   uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
-      #   with:
-      #     ref: $GITHUB_SHA
-      # - uses: chainguard-dev/actions/setup-gitsign@main
-      # - shell: bash
-      #   run: |
-      #     git verify-commit GITHUB_SHA
