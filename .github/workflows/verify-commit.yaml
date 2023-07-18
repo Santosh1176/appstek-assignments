@@ -32,10 +32,17 @@ jobs:
       #   run: |
       #    commit=$GITHUB_SHA
       #    echo ${GITHUB_SHA}
+
+      - name: Write signing key to disk
+        run: 'echo "$KEY" > cosign.key'
+        shell: bash
+        env:
+          KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
   
 
       - name: Verify commit
-        env: ${{COSIGN_PASSWORD}}
+        env:
+          COSIGN_PASSWORD: ${{COSIGN_PASSWORD}}
         shell: bash
 # The below script uses rekor-cli to fetch gitsign signed commit and verifies it has an entry in Rekor logs.
 # Then uses cosign to varify the certificates used in signing the commit.       
@@ -44,7 +51,7 @@ jobs:
           rekor-cli get --uuid=$uuid --format=json | jq .
           sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.content)
           cert=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.publicKey.content)
-          cosign verify-blob --key=${{secrets.COSIGN_PRIVATE_KEY}} <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(git rev-parse HEAD | tr -d '\n') -y
+          cosign verify-blob --key cosign.key <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(git rev-parse HEAD | tr -d '\n') -y
 
 # This method uses Git to varify the commit
       # - name: Verify commit using gitsign
