@@ -1,12 +1,36 @@
-# name: varify Gitsign commits
-# on:
-#   push:
-#     branches:
-#       - "*"
 
-# jobs:
-#   gitsign:
-#     permissions:
-#       id-token: write # Enable OIDC
-#     steps:
-#       - uses: chainguard-dev/actions/setup-gitsign@main
+name: gitsign verify with rekor
+
+on:
+  push:
+    branches:
+      - '*'
+jobs:
+  Rekor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install rekor
+        shell: bash
+        run: go install -v github.com/sigstore/rekor/cmd/rekor-cli@latest
+
+      - name: Get Commit SHA  
+        run:  commit=$GITHUB_SHA
+  
+
+      - name: Verify commit
+        shell: bash
+# This step uses Rekor to varify that the commit signed using gitsign has an entry in Rekor         
+        run: |
+          uuid=$(rekor-cli search --artifact <(echo $commit) | tail -n 1)
+          rekor-cli verify --uuid=$uuid
+
+
+# This method uses Gitsign to varify the commit
+      # - name: Verify commit using gitsign
+      #   uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # v3.1.0
+      #   with:
+      #     ref: $GITHUB_SHA
+      # - uses: chainguard-dev/actions/setup-gitsign@main
+      # - shell: bash
+      #   run: |
+      #     git verify-commit GITHUB_SHA

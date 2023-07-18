@@ -24,4 +24,4 @@
 
 11. **In the above, wherever you are building container image, dockerfile should be written as multi-stage docker image build method**
 
-- ## Document all the above using markdown and every file should have inline code comments (Edited)
+- ## Document all the above using markdown and every file should have inline code comments 
