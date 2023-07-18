@@ -46,7 +46,7 @@ jobs:
             ${{ env.IMAGE }}:latest
 
       - name: Sign the container image
-        run: cosign sign ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} --yes
+        run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} 
 
 
 
