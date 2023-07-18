@@ -51,7 +51,7 @@ jobs:
           rekor-cli get --uuid=$uuid --format=json | jq .
           sig=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.content)
           cert=$(rekor-cli get --uuid=$uuid --format=json | jq -r .Body.HashedRekordObj.signature.publicKey.content)
-          cosign verify-blob --key cosign.key <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(git rev-parse HEAD | tr -d '\n') -y
+          cosign verify-blob --key cosign.key <(echo $cert | base64 --decode) --signature <(echo $sig | base64 --decode) <(git rev-parse HEAD | tr -d '\n')
 
 # This method uses Git to varify the commit
       # - name: Verify commit using gitsign
