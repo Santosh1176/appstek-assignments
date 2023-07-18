@@ -9,15 +9,15 @@ on:
     branches: [ main ]
 
 jobs:
-  ghcr:
-    env:
-      IMAGE: santosh1176/appstek-assignments
-
-    runs-on: ubuntu-latest
+  build:
     permissions:
       contents: read
       packages: write
       id-token: write
+    env:
+      IMAGE: santosh1176/appstek-assignments
+
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -27,9 +27,9 @@ jobs:
         run: REVISION=${GITHUB_SHA::8}
 
       - name: Install cosign
-        uses: sigstore/cosign-installer@main
+        uses: sigstore/cosign-installer@v3.1.1
         with:
-          cosign-release: 'v1.4.1'
+          cosign-release: 'v1.13.1'
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
