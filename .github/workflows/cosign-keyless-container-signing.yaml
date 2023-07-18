@@ -13,6 +13,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      # The below permission on our PAT would be used to create the OIDC token for signing the 
+      # Container image after the build process is completed
       id-token: write
 
     runs-on: ubuntu-latest
@@ -21,7 +23,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
    
-
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.1.1
         with:
@@ -30,6 +31,7 @@ jobs:
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
 
+# Login to my ghcr account using username and PAT
       - name: Log into ghcr.io
         uses: docker/login-action@v2
         with:
@@ -42,107 +44,13 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          # TODO - Change the latest tag to github_sha::8
           tags: |
             ${{ env.IMAGE }}:latest
 
+# The below command will sign the container image digest following best-practices. As we are
+# pushing to a puclic GitHub Container Regiostry, the signing certificates would be automatically
+# pushed to Rekor transperancy logs.
+
       - name: Sign the container image
         run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# name: Docker Build, Push
-
-# on:
-#   push:
-#     branches:
-#       - '*'
-#     tags-ignore:
-#       - 'release/*'
-
-# jobs:
-#   ghcr:
-#     env:
-#       REGISTRY: ghcr.io
-#       IMAGE: santosh1176/appstek-assignments
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: read
-#       packages: write
-#       id-token: write
-#     steps:
-#       - name: Prepare
-#         id: prep
-#         run: REVISION=${GITHUB_SHA::8}
-
-#       - name: Set up QEMU
-#         uses: docker/setup-qemu-action@v1
-
-#       - name: Set up Docker Buildx
-#         uses: docker/setup-buildx-action@v1
-
-#       - name: Login to DockerHub
-#         uses: docker/login-action@v1
-#         with:
-#           username: ${{ github.actor }}
-#           password: ${{ secrets.GHCR_PAT }}
-
-#       - name: Build and push
-#         id: docker_build
-#         uses: docker/build-push-action@v3
-#         with:
-#           context: .
-#           push: true
-#           tags: |
-#             ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ steps.prep.outputs.REVISION }}
-      
-      
-#       - name: Install cosign
-#         uses: sigstore/cosign-installer@main
-
-
-#       - name: Image digest
-#         run: echo ${{ steps.docker_build.outputs.digest }}
-
-#       - name: Sign image with a key
-#         run: |
-#           cosign sign --key env://COSIGN_PRIVATE_KEY ${TAGS} --yes
-#         env:
-#           TAGS: ${{env.IMAGE}}@${{ steps.docker_build.outputs.digest }}
-#           COSIGN_PRIVATE_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
-#           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
-#           username: ${{ secrets.DOCKERHUB_USERNAME }}
-#           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    
