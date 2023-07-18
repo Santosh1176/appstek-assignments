@@ -22,9 +22,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      # - name: Prepare
-      #   id: prep
-      #   run: REVISION=${GITHUB_SHA::8}
+      - name: Prepare
+        id: prep
+        run: REVISION=${GITHUB_SHA::8}
 
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.1.1
@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ env.IMAGE }}:${GITHUB_SHA::8}
+          tags: ghcr.io/${{ env.IMAGE }}:${{steps.prep.RIVISION}}
 
       - name: Sign the container image
         run: cosign sign ghcr.io/${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }}
