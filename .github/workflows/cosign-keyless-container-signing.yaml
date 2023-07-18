@@ -64,6 +64,6 @@ jobs:
 
       - name: Verify container digest with cosign
         run: |
-          cosign verify cosign.pub ${{env.IMAGE}}:latest
+          cosign verify ${{env.IMAGE}}:latest
         env:
           COSIGN_EXPERIMENTAL: 1
