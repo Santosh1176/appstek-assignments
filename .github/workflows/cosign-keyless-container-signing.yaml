@@ -9,7 +9,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  ghcr:
+    env:
+      IMAGE: santosh1176/appstek-assignments
 
     runs-on: ubuntu-latest
     permissions:
@@ -44,10 +46,10 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}:RIVISION
+          tags: ghcr.io/${{ env.IMAGE }}:RIVISION
 
       - name: Sign the container image
-        run: cosign sign ghcr.io/${{ github.repository }}@${{ steps.push-step.outputs.digest }}
+        run: cosign sign ghcr.io/${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }}
 
 
 
