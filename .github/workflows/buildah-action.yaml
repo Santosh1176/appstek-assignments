@@ -23,7 +23,7 @@ jobs:
       with:
   # This action has tls-verify argument set to true by default
         image: ${{ env.IMAGE_NAME }}
-        tags: latest ${{ github.sha }}
+        tags: ${{ github.sha }}
         containerfiles: |
           ./Dockerfile-buildah
 
@@ -51,5 +51,5 @@ jobs:
     - name: Sign the images
       run: |
         cosign sign \
-        ${{env.REGISTRY}}/${{ steps.build-image.outputs.image }}@${{ steps.build-image.outputs.tags }}
+        ${{env.REGISTRY}}/${{ steps.build-image.outputs.image }}:${{ steps.build-image.outputs.tags }}
     
