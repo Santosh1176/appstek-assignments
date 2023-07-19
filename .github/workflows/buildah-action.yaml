@@ -1,9 +1,10 @@
-name: Build ubi-flask container
+name: Build Buildah Image an push to GHCR
 on:
   - push
 
 jobs:
   build:
+    permissions: write-all
     name: Build image
     runs-on: ubuntu-latest
     env:

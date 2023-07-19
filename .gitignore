@@ -1,1 +1,4 @@
 /my-cosign-keys
+config.json
+docker-reg.yaml
+dockerconfig.yaml
