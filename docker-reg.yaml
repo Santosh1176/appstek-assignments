@@ -1,0 +1,11 @@
+apiVersion: v1
+data:
+  .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJnaGNyLmlvL3NhbnRvc2gxMTc2L2FwcHN0ZWstYXNzaWdubWVudHMiOiB7CiAgICAgICJ1c2VybmFtZSI6ICJzYW50b3NoMTc2IiwKICAgICAgInBhc3N3b3JkIjogImdocF9DQ1FOWnpKTXRjNkVkcEVEb3BmZU1OS2VCeFAxOWI0V0hSbEEiLAogICAgICAiZW1haWwiOiAiZHRzaGJsQGdtYWlsLmNvbSIsCiAgICAgICJhdXRoIjogImMyRnVkRzl6YURFM05qcG5hSEJmUTBOUlRscDZTazEwWXpaRlpIQkZSRzl3Wm1WTlRrdGxRbmhRTVRsaU5GZElVbXhCIgogICAgfQogIH0KfQo=
+kind: Secret
+metadata:
+  creationTimestamp: "2023-07-19T09:58:41Z"
+  name: docker-reg
+  namespace: default
+  resourceVersion: "521662"
+  uid: 68f1dc36-e196-4999-8d8a-b6212989f7b2
+type: kubernetes.io/dockerconfigjson
