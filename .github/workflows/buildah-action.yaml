@@ -51,5 +51,5 @@ jobs:
     - name: Sign the images
       run: |
         cosign sign \
-        ${{env.REGISTRY}}/${{ steps.build-image.outputs.image }}@${{ steps.build-image.outputs.digest }}
+        ${{env.REGISTRY}}/${{ steps.build-image.outputs.image }}@${{ steps.build-image.outputs.tags }}
     
