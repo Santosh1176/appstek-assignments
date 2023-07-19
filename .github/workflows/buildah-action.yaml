@@ -21,7 +21,7 @@ jobs:
       with:
   # This action has tls-verify argument set to true by default
         image: ${{ env.IMAGE_NAME }}
-        tags: latest ${{ github.sha --short }}
+        tags: latest ${{ git rev-parse --short }}
         containerfiles: |
           ./Dockerfile-buildah
 
