@@ -36,18 +36,6 @@ jobs:
         shell: bash
         run: go install -v github.com/sigstore/rekor/cmd/rekor-cli@v1.2.2
 
-      # - name: Get Commit SHA  
-      #   run: |
-      #    commit=$GITHUB_SHA
-      #    echo ${GITHUB_SHA}
-
-      # - name: Write signing key to disk
-      #   run: 'echo "$KEY" > cosign.key'
-      #   shell: bash
-      #   env:
-      #     KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-  
-
       - name: Verify commit
         # env:
         #   COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
