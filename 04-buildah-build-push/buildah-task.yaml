@@ -53,6 +53,7 @@ spec:
     description: Skip pushing the built image
     default: "false"
   workspaces:
+  - name: dockerfile
   - name: source
   - name: sslcertdir
     optional: true

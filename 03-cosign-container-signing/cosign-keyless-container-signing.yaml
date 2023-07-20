@@ -54,16 +54,7 @@ jobs:
 
       - name: Sign the container image
         run: cosign sign --yes ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} 
-
-      # - name: Write signing key to disk
-      #   run: 'echo "$KEY" > cosign.pub'
-      #   shell: bash
-      #   env:
-      #     KEY: ${{ secrets.COSIGN_PUBLIC_KEY }}
-      #     COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
-
-# The below script verifies the container image digest using REGEX for OIDC povider and cert identity.
-
+ 
       - name: Verify container digest with cosign
         run: |
           cosign verify ${{ env.IMAGE }}@${{ steps.push-step.outputs.digest }} \

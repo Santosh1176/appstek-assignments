@@ -3,12 +3,14 @@ kind: PipelineRun
 metadata:
   name: buildah-test-pipeline-run
 spec:
+  serviceAccountName: docker-config 
   pipelineSpec:
     workspaces:
+      - name: dockerfile
       - name: shared-workspace
       - name: sslcertdir
         optional: true
-      - name: dockerconfig-ws
+      - name: dockerconfig
         optional: true
     tasks:
       - name: librarybuildah
@@ -23,6 +25,9 @@ spec:
         - name: IMAGE
           value: ghcr.io/santosh1176/appstek-assignments/buildah-library
   workspaces:
+    - name: dockerfile
+      configMap:
+        name: dockerfile
     - name: shared-workspace
       volumeClaimTemplate:
         spec:
