@@ -6,7 +6,7 @@ resources:
 - dev-ns.yaml
 
 commonLabels:
-  env: dev
+  env: dev-nginx
 replicas:
   - name: nginx-test
     count: 2
