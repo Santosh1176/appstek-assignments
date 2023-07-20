@@ -5,11 +5,6 @@ resources:
 - ../../base
 - dev-ns.yaml
 
-commonLabels:
-  env: dev-nginx
-replicas:
-  - name: nginx-test
-    count: 2
 
 # This JSON6902 Patch, addes 31000 as nodeport for the service in the dev namespace
 patches:
