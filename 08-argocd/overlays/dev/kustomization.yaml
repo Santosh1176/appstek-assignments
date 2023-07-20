@@ -11,7 +11,7 @@ patches:
   - patch: |-
      - op: add
        path: "/spec/ports/0/nodePort"
-       value: 31000
+       value: 30080
     target:
       kind: Service
 
