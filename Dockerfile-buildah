@@ -22,7 +22,7 @@ FROM alpine:latest
 WORKDIR /root
 
 # COPY copies the artifacts from the ealier "build" stage to relevant directories of this build process
-# COPY --from=build /home/library /root/
+COPY --from=build /home/library /root/
 COPY --from=build /home/main.go /root/
 COPY --from=build /home/image /root/image
 COPY --from=build /home/templates/. /root/templates
