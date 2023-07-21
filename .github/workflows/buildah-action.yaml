@@ -26,7 +26,7 @@ jobs:
         image: ${{ env.IMAGE_NAME }}
         tags: ${{ github.sha }}
         containerfiles: |
-          ./Dockerfile-buildah
+          ./Dockerfile
 
 
 # Login to my ghcr registry using my credentials provided as Action secrets
