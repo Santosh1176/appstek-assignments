@@ -1,7 +1,6 @@
 
 # Assignments
 
-# Tasks to do by Friday :-
 
 - [x] **Use gitsign to sign git commits in local and push that records to rekor**
 
