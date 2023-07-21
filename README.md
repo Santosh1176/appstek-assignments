@@ -12,7 +12,7 @@
 
 
 - **CICD tasks using GitHub actions (need to repeat these in tekton.dev tool too. Tekton hub might have readily available examples)**
-    - [ ] Creating an image using TektonCD and push the image to ghcr and sign the image using cosign/Tekton Chains
+    - [] Creating an image using TektonCD and push the image to ghcr and sign the image using cosign/Tekton Chains
 
 
 - **Build container image for an application using Buildah tool and push to GitHub container registry in a secure way to private GitHub container registers. This should be for signed image using cosign.**
@@ -28,7 +28,7 @@
 
 - [x] **Demonstrate how to use kustomize to deploy an application into k8s to dev environment and QA environment (dev namespace and QA namespace)**
 
-- [x.] **Demonstrate the ArgoCD setup and use ArgoCD to do application deployment where application manifest YAML files are managed by kustomize tool**
+- [x] **Demonstrate the ArgoCD setup and use ArgoCD to do application deployment where application manifest YAML files are managed by kustomize tool**
 
 
 ## Notes
