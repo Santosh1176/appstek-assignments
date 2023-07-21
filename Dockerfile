@@ -13,7 +13,7 @@ RUN go mod download
 
 # ARG COMMIT_SHA
 # ENV COMMIT_SHA=$COMMIT_SHA
-RUN  go build -o library -ldflags "-X main.commitSHA=$(COMMIT_SHA)"
+RUN  go build -o bookstore -ldflags "-X main.commitSHA=$(COMMIT_SHA)"
 
 # RUN echo ${COMMIT_SHA}
 EXPOSE 8080
@@ -29,9 +29,11 @@ WORKDIR /root
 # ENV COMMIT_SHA=$COMMIT_SHA
 
 # COPY copies the artifacts from the ealier "build" stage to relevant directories of this build process
-COPY --from=build /home/library /root
+
+COPY --from=build /home/bookstore /root
 COPY --from=build /home/main.go /root
 COPY --from=build /home/image /root/image
 COPY --from=build /home/templates/. /root/templates
 
-ENTRYPOINT ["./library"]
+ENTRYPOINT ["./bookstore"]
+
