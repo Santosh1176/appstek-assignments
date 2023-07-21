@@ -13,7 +13,7 @@ RUN go mod download
 
 # ARG COMMIT_SHA
 # ENV COMMIT_SHA=$COMMIT_SHA
-# RUN  go build -o library -ldflags "-X main.commitSHA=$(COMMIT_SHA)"
+RUN  go build -o library -ldflags "-X main.commitSHA=$(COMMIT_SHA)"
 
 # RUN echo ${COMMIT_SHA}
 EXPOSE 8080
