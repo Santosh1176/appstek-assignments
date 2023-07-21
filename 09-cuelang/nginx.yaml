@@ -2,20 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: nginx-test
-  name: nginx-test
+    app: cue-deploy
+  name: cue-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-test
+      app: cue-deploy
+
   strategy: {}
   template:
     metadata:
       labels:
-        app: nginx-test
+        app: cue-deploy
+  
     spec:
       containers:
-      - image: nginx
+      - image: nginx:alpine
         name: nginx
         resources: {}
+

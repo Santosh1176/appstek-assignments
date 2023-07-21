@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: buildah-test-pipeline-run
+spec:
+  serviceAccountName: docker-config 
+  pipelineSpec:
+    workspaces:
+      - name: dockerfile
+      - name: shared-workspace
+      - name: sslcertdir
+        optional: true
+      - name: dockerconfig
+        optional: true
+    tasks:
+      - name: librarybuildah
+        taskRef:
+          name: librarybuildah
+        workspaces:
+        - name: source
+          workspace: shared-workspace
+        - name: dockerconfig
+          workspace: dockerconfig
+        params:
+        - name: IMAGE
+          value: ghcr.io/santosh1176/appstek-assignments/buildah-library
+  workspaces:
+    - name: dockerfile
+      configMap:
+        name: dockerfile
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 100Mi
+    - name: dockerconfig
+      secret:
+        secretName: dockerconfig-secret

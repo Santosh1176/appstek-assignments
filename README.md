@@ -13,7 +13,7 @@
 
 
 - **CICD tasks using GitHub actions (need to repeat these in tekton.dev tool too. Tekton hub might have readily available examples)**
-    - [ ] Creing an image using TektonCD and push the image to ghcr and sign the image using cosign/Tekton Chains
+    - [ ] Creating an image using TektonCD and push the image to ghcr and sign the image using cosign/Tekton Chains
 
 
 - **Build container image for an application using Buildah tool and push to GitHub container registry in a secure way to private GitHub container registers. This should be for signed image using cosign.**
@@ -21,13 +21,15 @@
     - [x] Created a GitHub Action to push an image using Buildah and then sign the image using cosign
 
 
-7. **Using cuelang, demonstrate how to build manifest files for an application and also how to verify manifest files with multiple varieties of conditions.**
+- **Using cuelang, demonstrate how to build manifest files for an application and also how to verify manifest files with multiple varieties of conditions.**
+    - [x] Validate Kubernetes manifests
+    - [] Generate Kubernetes MAnifests
 
 - [x] **Demonstrate how to use kustomize + helm to deploy Prometheus onto k8s**
 
 - [x] **Demonstrate how to use kustomize to deploy an application into k8s to dev environment and QA environment (dev namespace and QA namespace)**
 
-- [10.] **Demonstrate the ArgoCD setup and use ArgoCD to do application deployment where application manifest YAML files are managed by kustomize tool**
+- [x.] **Demonstrate the ArgoCD setup and use ArgoCD to do application deployment where application manifest YAML files are managed by kustomize tool**
 
 
 ## Notes

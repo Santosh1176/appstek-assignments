@@ -1,1 +1,0 @@
-We need to enable --enable-helm flag when using kustomize to inflate a helm chart
