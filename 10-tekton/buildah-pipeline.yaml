@@ -1,41 +1,38 @@
 apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
+kind: Pipeline
 metadata:
-  name: buildah-test-pipeline-run
+  name: buildah-build-push
 spec:
-  serviceAccountName: docker-config 
-  pipelineSpec:
-    workspaces:
-      - name: dockerfile
-      - name: shared-workspace
-      - name: sslcertdir
-        optional: true
-      - name: dockerconfig
-        optional: true
-    tasks:
-      - name: librarybuildah
-        taskRef:
-          name: librarybuildah
-        workspaces:
-        - name: source
-          workspace: shared-workspace
-        - name: dockerconfig
-          workspace: dockerconfig
-        params:
-        - name: IMAGE
-          value: ghcr.io/santosh1176/appstek-assignments/buildah-library
+  description: | 
+    This pipeline clones a git repo, builds a Docker image with Buildah and
+    pushes it to a registry
+  params:
+  - name: repo-url
+    type: string
+  - name: image-reference
+    type: string
   workspaces:
-    - name: dockerfile
-      configMap:
-        name: dockerfile
-    - name: shared-workspace
-      volumeClaimTemplate:
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 100Mi
+  - name: shared-data
+  - name: docker-credentials
+  tasks:
+  - name: fetch-source
+    taskRef:
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: shared-data
+    params:
+    - name: url
+      value: $(params.repo-url)
+  - name: librarybuildah
+    runAfter: ["fetch-source"]
+    taskRef:
+      name: librarybuildah
+    workspaces:
+    - name: source
+      workspace: shared-data
     - name: dockerconfig
-      secret:
-        secretName: dockerconfig-secret
+      workspace: docker-credentials
+    params:
+    - name: IMAGE
+      value: $(params.image-reference)

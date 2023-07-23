@@ -36,3 +36,26 @@
 In the above, wherever you are building container image, dockerfile should be written as multi-stage docker image build method.
 
 Document all the above using markdown and every file should have inline code comments 
+
+
+GITHUB TOKEN in New REpo No Tokenens and Keys
+
+Push Buildah Image to Pvt Registry **Tekton**
+
+Prometheus Repo, allways pulls charts?
+
+Finish Learning Rancher, K3s, Talos, **CAPI** - kluctl, Karmada
+
+Velero: Back up and DR 
+
+*Apko* *Melange*, 
+*Dive* cont image inspection
+
+Trivy
+
+
+-----------------------
+
+Dataplane - 2 nodes
+Controlplane - 2 nodes
+worker - nodes

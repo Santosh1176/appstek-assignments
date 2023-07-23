@@ -1,4 +1,3 @@
----
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -32,7 +31,7 @@ spec:
     default: overlay
   - name: DOCKERFILE
     description: Path to the Dockerfile to build.
-    default: ./Dockerfile-buildah
+    default: ./Dockerfile
   - name: CONTEXT
     description: Path to the directory to use as context.
     default: .
@@ -53,7 +52,6 @@ spec:
     description: Skip pushing the built image
     default: "false"
   workspaces:
-  - name: dockerfile
   - name: source
   - name: sslcertdir
     optional: true

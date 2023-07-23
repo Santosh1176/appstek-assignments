@@ -13,8 +13,7 @@ _metadata: {
 	name:       string
 	namespace?: string
 	labels:     _labels
-	annotations?: [string]: stringlabels,
-}
+	annotations?: [string]: string}
 
 //Referenced the pedefined definitions in the appropriate fields, `metadata` and `labels` and `selector` values.
 

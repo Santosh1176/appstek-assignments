@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  managedFields:
-  - apiVersion: storage.k8s.io
+  # managedFields:
+  # - apiVersion: storage.k8s.io
   labels:
     app: test-nginx
   name: test-nginx
