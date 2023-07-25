@@ -1,51 +1,27 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: buildah-test-pipeline-run
+  generateName: buildah-build-push-run
 spec:
-  pipelineSpec:
-    workspaces:
-      - name: shared-workspace
-      - name: sslcertdir
-        optional: true
-      - name: dockerconfig-ws
-        optional: true
-    tasks:
-      - name: fetch-repository
-        taskRef:
-          name: git-clone
-        workspaces:
-          - name: output
-            workspace: shared-workspace
-        params:
-          - name: url
-            value: https://github.com/santosh1176/appstek-assignments
-          - name: subdirectory
-            value: ""
-          - name: deleteExisting
-            value: "true"
-      - name: librarybuildah
-        taskRef:
-          name: librarybuildah
-        runAfter:
-        - fetch-repository
-        workspaces:
-        - name: source
-          workspace: shared-workspace
-        - name: dockerconfig
-          workspace: dockerconfig-ws
-        params:
-        - name: IMAGE
-          value: ghcr.io/santosh1176/appstek-assignments/tekton-buildah:latest
+  pipelineRef:
+    name: buildah-build-push
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
   workspaces:
-    - name: shared-workspace
-      volumeClaimTemplate:
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 100Mi
-    - name: dockerconfig-ws
-      secret:
-        secretName: dockerconfig-secret
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: docker-credentials
+    secret:
+      secretName: dockerconfig-secret
+  params:
+  - name: repo-url
+    value: https://github.com/santosh1176/appstek-assignments.git
+  - name: image-reference
+    value: ghcr.io/santosh1176/appstek-assignments/tekton-library:latest

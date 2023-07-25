@@ -25,7 +25,7 @@ spec:
     description: Reference of the image buildah will produce.
   - name: BUILDER_IMAGE
     description: The location of the buildah builder image.
-    default: quay.io/buildah/stable:v1.31.0
+    default: quay.io/buildah/stable:v1.23.3
   - name: STORAGE_DRIVER
     description: Set buildah storage driver
     default: overlay
@@ -40,7 +40,7 @@ spec:
     default: "true"
   - name: FORMAT
     description: The format of the built container, oci or docker
-    default: "docker"
+    default: "oci"
   - name: BUILD_EXTRA_ARGS
     description: Extra parameters passed for the build command when building images.
     default: ""
