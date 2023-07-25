@@ -3,7 +3,7 @@
 # The first stage uses golang:1.19-alpine as build
 # The AS keywords names the current build as "build", to be referenced later in the second stage
 
-FROM golang:1.19-alpine AS build
+FROM docker.io/library/golang:1.19-alpine AS build
 
 WORKDIR /home
 
@@ -22,7 +22,7 @@ EXPOSE 8080
 # All the steps from the first build  are discarded, and only necessary  artifacts are copied in this stage
 # When required
 
-FROM alpine:latest 
+FROM docker.io/library/alpine:latest 
 
 WORKDIR /root
 # ARG COMMIT_SHA
