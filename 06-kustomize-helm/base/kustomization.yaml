@@ -17,7 +17,7 @@ resources:
 
 helmCharts:
 - name: prometheus
-#  repo: https://prometheus-community.github.io/helm-charts 
+  repo: https://prometheus-community.github.io/helm-charts 
 #  We can use the repo url as well to pull charts from public chart repos. Once, used, it downloads
 #  the chart in to local filesystem. 
   version: 23.1.0  # Version of the chart to be installed
