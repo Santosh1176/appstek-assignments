@@ -2,7 +2,7 @@
 # Assignments
 
 
-- [x] **Use gitsign to sign git commits in local and push that records to rekor**
+- [x] **Use gitsign to sign git commits in local and push that records to rekor**.
 
 - [x] **Verify gitsign signed git commits using GitHub action by verifying using rekor/cosign in GitHub action itself**
 
